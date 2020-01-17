@@ -1,0 +1,698 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "intent": "goodbye",
+        "text": "Bye"
+      },
+      {
+        "intent": "goodbye",
+        "text": "Goodbye"
+      },
+      {
+        "intent": "goodbye",
+        "text": "See you later"
+      },
+      {
+        "intent": "goodbye",
+        "text": "Bye bot"
+      },
+      {
+        "intent": "goodbye",
+        "text": "Goodbye friend"
+      },
+      {
+        "intent": "goodbye",
+        "text": "bye"
+      },
+      {
+        "intent": "goodbye",
+        "text": "bye for now"
+      },
+      {
+        "intent": "goodbye",
+        "text": "catch you later"
+      },
+      {
+        "intent": "goodbye",
+        "text": "gotta go"
+      },
+      {
+        "intent": "goodbye",
+        "text": "See you"
+      },
+      {
+        "intent": "goodbye",
+        "text": "goodnight"
+      },
+      {
+        "intent": "goodbye",
+        "text": "have a nice day"
+      },
+      {
+        "intent": "goodbye",
+        "text": "i'm off"
+      },
+      {
+        "intent": "goodbye",
+        "text": "see you later alligator"
+      },
+      {
+        "intent": "goodbye",
+        "text": "we'll speak soon"
+      },
+      {
+        "intent": "greet",
+        "text": "Hi"
+      },
+      {
+        "intent": "greet",
+        "text": "Hey"
+      },
+      {
+        "intent": "greet",
+        "text": "Hi bot"
+      },
+      {
+        "intent": "greet",
+        "text": "Hey bot"
+      },
+      {
+        "intent": "greet",
+        "text": "Hello"
+      },
+      {
+        "intent": "greet",
+        "text": "Good morning"
+      },
+      {
+        "intent": "greet",
+        "text": "hi again"
+      },
+      {
+        "intent": "greet",
+        "text": "hi folks"
+      },
+      {
+        "intent": "greet",
+        "text": "hi Mister"
+      },
+      {
+        "intent": "greet",
+        "text": "hi pal!"
+      },
+      {
+        "intent": "greet",
+        "text": "hi there"
+      },
+      {
+        "intent": "greet",
+        "text": "greetings"
+      },
+      {
+        "intent": "greet",
+        "text": "hello everybody"
+      },
+      {
+        "intent": "greet",
+        "text": "hello is anybody there"
+      },
+      {
+        "intent": "greet",
+        "text": "hello robot"
+      },
+      {
+        "intent": "thanks",
+        "text": "Thanks"
+      },
+      {
+        "intent": "thanks",
+        "text": "Thank you"
+      },
+      {
+        "intent": "thanks",
+        "text": "Thank you so much"
+      },
+      {
+        "intent": "thanks",
+        "text": "Thanks bot"
+      },
+      {
+        "intent": "thanks",
+        "text": "Thanks for that"
+      },
+      {
+        "intent": "thanks",
+        "text": "cheers"
+      },
+      {
+        "intent": "thanks",
+        "text": "cheers bro"
+      },
+      {
+        "intent": "thanks",
+        "text": "ok thanks!"
+      },
+      {
+        "intent": "thanks",
+        "text": "perfect thank you"
+      },
+      {
+        "intent": "thanks",
+        "text": "thanks a bunch for everything"
+      },
+      {
+        "intent": "thanks",
+        "text": "thanks for the help"
+      },
+      {
+        "intent": "thanks",
+        "text": "thanks a lot"
+      },
+      {
+        "intent": "thanks",
+        "text": "amazing, thanks"
+      },
+      {
+        "intent": "thanks",
+        "text": "cool, thanks"
+      },
+      {
+        "intent": "thanks",
+        "text": "cool thank you"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 11,
+            "end": 16,
+            "value": "Juste",
+            "entity": "name"
+          }
+        ],
+        "text": "My name is Juste"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 9,
+            "value": "Josh",
+            "entity": "name"
+          }
+        ],
+        "text": "I am Josh"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 4,
+            "end": 8,
+            "value": "Lucy",
+            "entity": "name"
+          }
+        ],
+        "text": "I'm Lucy"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 15,
+            "end": 19,
+            "value": "Greg",
+            "entity": "name"
+          }
+        ],
+        "text": "People call me Greg"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 10,
+            "value": "David",
+            "entity": "name"
+          }
+        ],
+        "text": "It's David"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 23,
+            "end": 26,
+            "value": "Amy",
+            "entity": "name"
+          }
+        ],
+        "text": "Usually people call me Amy"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 11,
+            "end": 15,
+            "value": "John",
+            "entity": "name"
+          }
+        ],
+        "text": "My name is John"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 16,
+            "end": 19,
+            "value": "Sam",
+            "entity": "name"
+          }
+        ],
+        "text": "You can call me Sam"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 15,
+            "end": 20,
+            "value": "Linda",
+            "entity": "name"
+          }
+        ],
+        "text": "Please call me Linda"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 13,
+            "end": 16,
+            "value": "Tom",
+            "entity": "name"
+          }
+        ],
+        "text": "Name name is Tom"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 12,
+            "value": "Richard",
+            "entity": "name"
+          }
+        ],
+        "text": "I am Richard"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 4,
+            "end": 9,
+            "value": "Tracy",
+            "entity": "name"
+          }
+        ],
+        "text": "I'm Tracy"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 8,
+            "end": 13,
+            "value": "Sally",
+            "entity": "name"
+          }
+        ],
+        "text": "Call me Sally"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 12,
+            "value": "Philipp",
+            "entity": "name"
+          }
+        ],
+        "text": "I am Philipp"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 12,
+            "value": "Charlie",
+            "entity": "name"
+          }
+        ],
+        "text": "I am Charlie"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 10,
+            "value": "Kelin",
+            "entity": "name"
+          }
+        ],
+        "text": "I am Kelin"
+      },
+      {
+        "intent": "name",
+        "entities": [
+          {
+            "start": 5,
+            "end": 17,
+            "value": "Peter Parker",
+            "entity": "name"
+          }
+        ],
+        "text": "I am Peter Parker"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "yes"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "indeed"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "of course"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "that sounds good"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "correct"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "yes sure"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "absolutely"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "for sure"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "yes yes yes"
+      },
+      {
+        "intent": "mood_affirm",
+        "text": "definitely"
+      },
+      {
+        "intent": "mood_deny",
+        "text": "no"
+      },
+      {
+        "intent": "mood_deny",
+        "text": "never"
+      },
+      {
+        "intent": "mood_deny",
+        "text": "I don't think so"
+      },
+      {
+        "intent": "mood_deny",
+        "text": "don't like that"
+      },
+      {
+        "intent": "mood_deny",
+        "text": "no way"
+      },
+      {
+        "intent": "mood_great",
+        "text": "perfect"
+      },
+      {
+        "intent": "mood_great",
+        "text": "very good"
+      },
+      {
+        "intent": "mood_great",
+        "text": "great"
+      },
+      {
+        "intent": "mood_great",
+        "text": "amazing"
+      },
+      {
+        "intent": "mood_great",
+        "text": "feeling like a king"
+      },
+      {
+        "intent": "mood_great",
+        "text": "wonderful"
+      },
+      {
+        "intent": "mood_great",
+        "text": "I am feeling very good"
+      },
+      {
+        "intent": "mood_great",
+        "text": "I am great"
+      },
+      {
+        "intent": "mood_great",
+        "text": "I am amazing"
+      },
+      {
+        "intent": "mood_great",
+        "text": "I am going to save the world"
+      },
+      {
+        "intent": "mood_great",
+        "text": "super"
+      },
+      {
+        "intent": "mood_great",
+        "text": "extremely good"
+      },
+      {
+        "intent": "mood_great",
+        "text": "so so perfect"
+      },
+      {
+        "intent": "mood_great",
+        "text": "so good"
+      },
+      {
+        "intent": "mood_great",
+        "text": "so perfect"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "my day was horrible"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "I am sad"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "I don't feel very well"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "I am disappointed"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "super sad"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "I'm so sad"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "sad"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "very sad"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "unhappy"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "not so good"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "not very good"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "extremly sad"
+      },
+      {
+        "intent": "mood_unhappy",
+        "text": "so sad"
+      },
+      {
+        "intent": "NTU",
+        "text": "Where is NTU?"
+      },
+      {
+        "intent": "NTU",
+        "text": "What is location of NTU?"
+      },
+      {
+        "intent": "NTU",
+        "text": "What is NTU address?"
+      },
+      {
+        "intent": "NTU",
+        "text": "What is NTU postal code?"
+      },
+      {
+        "intent": "years",
+        "text": "how long does it take for part-time?"
+      },
+      {
+        "intent": "years",
+        "text": "what is the duration for part-time?"
+      },
+      {
+        "intent": "years",
+        "text": "how long time needed for part-time?"
+      },
+      {
+        "intent": "years",
+        "text": "when can graduate from part-time?"
+      },
+      {
+        "intent": "certificate",
+        "text": "how about certification?"
+      },
+      {
+        "intent": "certificate",
+        "text": "what is different from certificate of part-time degree and full-time degree?"
+      },
+      {
+        "intent": "certificate",
+        "text": "is the certification same as full-time?"
+      },
+      {
+        "intent": "certificate",
+        "text": "what is different from part-time degree and full-time degree?"
+      },
+      {
+        "intent": "qualified",
+        "text": "what is part-time degree requirement?"
+      },
+      {
+        "intent": "qualified",
+        "text": "who can apply part-time programmes?"
+      },
+      {
+        "intent": "qualified",
+        "text": "which kind of students can be enrolled for part-time programmes?"
+      },
+      {
+        "intent": "qualified",
+        "text": "how about part-time degree admission requirement?"
+      },
+      {
+        "intent": "bus",
+        "text": "how to go to NTU?"
+      },
+      {
+        "intent": "bus",
+        "text": "which bus can get to NTU?"
+      },
+      {
+        "intent": "bus",
+        "text": "how many bus can go to NTU?"
+      },
+      {
+        "intent": "bus",
+        "text": "how many ways can get to NTU?"
+      },
+      {
+        "intent": "location_search",
+        "entities": [
+          {
+            "start": 17,
+            "end": 23,
+            "value": "clinic",
+            "entity": "location"
+          }
+        ],
+        "text": "where can I find clinic?"
+      },
+      {
+        "intent": "location_search",
+        "entities": [
+          {
+            "start": 9,
+            "end": 12,
+            "value": "NTU",
+            "entity": "location"
+          }
+        ],
+        "text": "where is NTU?"
+      },
+      {
+        "intent": "location_search",
+        "entities": [
+          {
+            "start": 20,
+            "end": 23,
+            "value": "EEE",
+            "entity": "location"
+          }
+        ],
+        "text": "what is location of EEE?"
+      }
+    ],
+    "regex_features": [],
+    "lookup_tables": [],
+    "entity_synonyms": [
+      {
+        "value": "certificate",
+        "synonyms": [
+          "cert",
+          "certification",
+          "degree cert"
+        ]
+      },
+      {
+        "value": "qualified",
+        "synonyms": [
+          "qualification",
+          "requirement",
+          "require need"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,207 @@
+﻿{% extends "dashboard_layout.html" %}
+
+{% block content %}
+
+<head>
+    <script src="../static/js/Chart.bundle.js"></script>
+</head>
+
+<style>
+    .hide {
+        display: none;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="content-wrapper" style="background-color:#e3eaef">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb" style="background-color:#ffffff">
+            <li class="breadcrumb-item active" style="font-weight: bolder">Dashboard</li>
+        </ol>
+
+        <div class="row">
+            <div class="col-lg-4" height="100" style="padding-right:10px;">
+                <div class="card mb-3">
+                    <div class="card-body" style="height:140px;padding:12px;background-color: #e3eaef;border:1px solid #e3eaef;border-color:transparent;background-color:#ffffff"  height="40px">
+                        <div class="chart-filters" style="margin-left: 0px;border:1px solid #e3eaef;border-color:transparent">
+                            <table>
+                                <script>
+                                    function show1(){
+                                        document.getElementById('div1').style.display ='block';
+                                        document.getElementById('div2').style.display ='none';
+                                        document.getElementById('div3').style.display ='none';
+                                    }
+                                    function show2(){
+                                        document.getElementById('div1').style.display = 'block';
+                                        document.getElementById('div2').style.display ='block';
+                                        document.getElementById('div3').style.display ='none';
+                                    }
+                                    function show3(){
+                                        document.getElementById('div1').style.display = 'none';
+                                        document.getElementById('div2').style.display ='none';
+                                        document.getElementById('div3').style.display ='block';
+                                    }
+                                    window.onload=show1;
+                                </script>
+
+
+                                <tr>    
+                                    <b>Show by: &nbsp;</b> &nbsp;  
+                                    <input type="radio" name="choice" value="year" onclick="show1();" checked> Month &nbsp;&nbsp;
+                                    <input type="radio" name="choice" value="month" onclick="show2();" > Day &nbsp;&nbsp;
+                                    <input type="radio" name="choice" value="day"  onclick="show3();"> Hour   
+                                </tr>
+                               
+                                <tr> 
+                                    <div id="div1" class="hide">
+                                     
+                                        <b>Choose Year:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        
+                                        <select id="chooseyear" name="chooseyear" width="10px">
+                                            <option  disabled selected value> -- select a year  -- </option>
+                                            {% for year in yearlist %}       
+                                                <option value="{{year}}">{{year}}</option>
+                                            {% endfor  %}  
+                                        </select>
+                                     
+                                    </div>
+                                </tr>
+                                <tr> 
+                                    <div id="div2" class="hide">                               
+                                  
+                                        <b>Choose Month:</b>&nbsp;
+                                        <select id = "choosemonth" name="choosemonth" width="10px">
+                                            <option  disabled selected value> -- select a month -- </option>
+                                            {% for month in monthlist %}       
+                                                <option value="{{month.0}}">{{month.1}}</option>
+                                            {% endfor  %}  
+                                        </select>
+                                                         
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div id="div3" class="hide">
+                                        <b> Choose Day:</b>&nbsp;                                       
+                                        
+                                        <input id="datepicker"/> 
+                                        <script>
+                                            Date.prototype.toDateInputValue = (function() {
+                                                var local = new Date(this);
+                                                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+                                                return local.toJSON().slice(0,10);
+                                            });
+                                            document.getElementById('datePicker').value = new Date().toDateInputValue();
+                                        </script>
+                                    </div>
+                                </tr>  
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="filter" type="button" class="filter-button" style="background-color:#00acd6"  value="Filter" onclick="filterChart()" />
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>  
+                        <script src="../static/js/jquery.min.js"></script>
+                        <script>
+                            
+                            function selectDay(sorted_date){
+                                jQuery(function(){
+                                    // console.log(sorted_date)
+                                    var enableDays = sorted_date;
+                                    var today = new Date()
+                                    function enableAllTheseDays(date) {
+                                        var sdate = $.datepicker.formatDate( 'dd-m-yy', date)
+                                        
+                                        if($.inArray(sdate, enableDays) != -1) {
+                                            return [true];
+                                        }
+                                        return [false];
+                                    }                    
+                                    $('#datepicker').datepicker({dateFormat: 'dd-mm-yy', beforeShowDay: enableAllTheseDays});
+                                    $("#datepicker").datepicker( "setDate" , enableDays[enableDays.length-1] );
+                                })
+                            }
+                            selectDay({{sorted_date|safe}});
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2" style="padding-left:10px;padding-right:10px;">
+                <div class="card mb-3" style="background-color:#ffffff;height:140px;">
+                    <div class="card-header" style="font-size:14px;text-align:center;font-weight:bolder">
+                        Accuracy Rate
+                    </div>
+                    <div class="card-body">
+                        <h1 id="accuracy_rate" style="color:black;text-align:center;margin:auto;"></h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="padding-left:10px;padding-right:10px;">
+                <div class="card mb-3" style="background-color:#ffffff;height:140px;">
+                    <div class="card-header" style="font-size:14px;text-align:center;font-weight:bolder">
+                        Resolved Questions
+                    </div>
+                    <div class="card-body">
+                        <h1 id="num_resolved" style="color:black;text-align:center;margin:auto;"></h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="padding-left:10px;">
+                <div class="card mb-3" style="background-color:#ffffff;height:140px;">
+                    <div class="card-header" style="font-size:14px;text-align:center;font-weight:bolder">
+                        Total Questions
+                    </div>
+                    <div class="card-body">
+                        <h1 id="num_questions" style="color:black;text-align:center;margin:auto;"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-3">
+                    <div class="card-header" style="font-weight:bold;font-size:14px">
+                        <i class="fa fa-area-chart" style="font-size:20px"></i>  Hit Analysis
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myAreaChart" width="100" height="30"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row"> 
+            <div class="col-lg-12">
+                <div class="card mb-3"> 
+                    <div class="card-header" style="font-weight:bold;font-size:14px">
+                        <i class="fa fa-trophy" style="font-size:20px"></i>  Top Question Analysis
+                    </div> 
+                   
+                    <a id="top_question_dashboard"></a>
+                  
+                </div>
+            </div> 
+        </div>
+        
+    </div>
+
+    
+
+    <!-- Custom scripts for this page-->   
+    <script type=text/javascript> $SCRIPT_ROOT = {{request.script_root|tojson|safe}};</script>
+
+    <!-- Custom scripts for this page-->
+    <script src="../static/js/dashboard-charts.js"></script>
+</div>
+
+{% endblock %}
+{% include "footer.html" %}

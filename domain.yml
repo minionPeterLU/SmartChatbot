@@ -1,0 +1,42 @@
+intents:
+  - greet
+  - cheer
+  - goodbye
+  - mood_affirm
+  - mood_deny
+  - mood_great
+  - mood_unhappy
+  - name 
+actions:
+- utter_greet
+- utter_cheer_up
+- utter_did_that_help
+- utter_happy
+- utter_goodbye
+- utter_name
+
+templates:
+  utter_greet:
+  - text: "Nice to you meet you {name}. How can I help?"
+    image: "http://m.plonga.com/uploads/thumbs/tropical-minion-delivery-html5-game.jpg"
+    buttons:
+    - title: "great"
+      payload: "great"
+    - title: "super sad"
+      payload: "super sad"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "./assets/images/rilakkuma.gif"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_name:
+  - text: "Hey there! Tell me your name."

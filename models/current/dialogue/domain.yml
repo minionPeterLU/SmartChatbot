@@ -1,0 +1,51 @@
+%YAML 1.1
+---
+actions:
+- utter_greet
+- utter_cheer_up
+- utter_did_that_help
+- utter_happy
+- utter_goodbye
+- utter_name
+config:
+  store_entities_as_slots: true
+entities: []
+forms: []
+intents:
+- greet:
+    use_entities: true
+- cheer:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- mood_affirm:
+    use_entities: true
+- mood_deny:
+    use_entities: true
+- mood_great:
+    use_entities: true
+- mood_unhappy:
+    use_entities: true
+- name:
+    use_entities: true
+slots: {}
+templates:
+  utter_cheer_up:
+  - image: ./assets/images/rilakkuma.gif
+    text: 'Here is something to cheer you up:'
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_goodbye:
+  - text: Bye
+  utter_greet:
+  - buttons:
+    - payload: great
+      title: great
+    - payload: super sad
+      title: super sad
+    image: http://m.plonga.com/uploads/thumbs/tropical-minion-delivery-html5-game.jpg
+    text: Nice to you meet you {name}. How can I help?
+  utter_happy:
+  - text: Great carry on!
+  utter_name:
+  - text: Hey there! Tell me your name.
