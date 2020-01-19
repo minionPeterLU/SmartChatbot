@@ -194,7 +194,8 @@ def home():
     list_date.sort(key=lambda date: datetime.strptime(date, "%Y-%m-%d %H:%M:%S"))
     return render_template('homepage.html',yearlist = year_list,monthlist = month_list,sorted_date=json.dumps(list_date))
 
-# upon landing to the dashboard page, this back end will auto-process different datasets required from the dashboard to psa-dashboard-chart.js for further loading process to Dashboard
+# upon landing to the dashboard page, this back end will auto-process different datasets required 
+# from the dashboard to psa-dashboard-chart.js for further loading process to Dashboard
 @app.route('/category_analysis', methods = ['POST'])
 # @login_required
 def category_anlaysis():
@@ -269,7 +270,8 @@ def category_anlaysis():
         question_analysis_count = question_analysis_count 
         )
 
-# filter user filter the timestamp on the dashboard page, this back end will process different filtered datasets required from the dashboard to psa-dashboard-chart.js for further loading process to Dashboard
+# filter user filter the timestamp on the dashboard page, 
+# this back end will process different filtered datasets required from the dashboard to psa-dashboard-chart.js for further loading process to Dashboard
 @app.route("/breakdown_analysis", methods = ['POST'])
 @cross_origin(supports_credentials=True)
 # @login_required
