@@ -98,19 +98,25 @@ def chatbotUI():
 @app.route('/login',methods=['GET','POST'])
 def login():
     form = LoginForm()
-    print(form.username.data,"Reach here ? 1 ")
-    error = ""
-    if form.validate_on_submit():
-        print(form.username.data,"Reach here ? 2 ")
-        users = User.query.filter_by(username=form.username.data).first()
-        print(form.username.data,"Reach here ? 3 ")
-        if user:
-            print(form,"Reach here ? 4 ")
-            if check_password_hash(user.password, form.password.data):
-                print(form.username.data,"Reach here ? 5 ")
-                login_user(user, remember = form.remember.data)
-                print(form.username.data,"Reach here ? 6 ")
-                return redirect(url_for('home'))
+    username = form.username.data
+    password = form.password.data
+    error= ""
+    conn = conn_manager.get_conn()    
+    df = pd.read_sql_query('select user_name as username, user_password as passord from user',con=conn)
+ 
+    
+    if conn != None:
+        conn.close()
+
+    if df.empty:
+        error = 'Invalid username or password!' 
+        return render_template('admin_login.html', form = form, error = error)
+    
+    if  df['username'].str.contains(username, regex=False).any():  
+        index = df[df['username']==username].index.values[0]
+
+        if df['passord'][index] == password: 
+            return redirect(url_for('home'))
 
         error = 'Invalid username or password!' 
         
@@ -174,7 +180,7 @@ def home():
     
     conn = conn_manager.get_conn()    
     df = pd.read_sql_query('select analysis_timestamp as timestamp,faq_id from analysis',con=conn)
-    
+
     if conn != None:
         conn.close()
 

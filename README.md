@@ -1,5 +1,5 @@
-﻿## Author : LU JIANAN 
-## Date: 8th Sep 2019
+﻿## Author : ZHONG YUXIN
+## Date: 14th Feb 2020
 
 ## Setup and installation
 
