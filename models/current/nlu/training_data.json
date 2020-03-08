@@ -692,6 +692,14 @@
           "requirement",
           "require need"
         ]
+      },
+      {
+        "value": "undergraduate",
+        "synonyms": [
+          "degree",
+          "bachelor",
+          "bachelor degree"
+        ]
       }
     ]
   }

@@ -19,7 +19,7 @@ import spacy
 
 NLP = spacy.load('en_core_web_lg')
 interpreter = Interpreter.load('models/current/nlu')
-agent = Agent.load('models/current/dialogue', interpreter=interpreter)
+# agent = Agent.load('models/current/dialogue', interpreter=interpreter)
 FAQ_ID = []
 FAQ_QN = []
 FAQ_ANS = []
@@ -92,10 +92,16 @@ def process_input(input, response):
     if len(FAQ_QN) == 0 or len(FAQ_ANS) == 0 or len(FAQ_ID) == 0:
         load_data()
 
-    # For Future Development
-    # bc = BertClient(port=5555, port_out=5556)
-    # doc_vecs = bc.encode(FAQ_QN)
-
+    # Check for the need of two-tier handling of asking FAQs
+    prep_answers = request.cookies.get("prep_answers")
+    if prep_answers:
+        resolved = second_confirm(input, prep_answers, response)
+        if resolved[0] != None:
+            responses = [{'recipient_id': 'default', resolved[1][1] : resolved[1][0]}]
+            responses_message = {"status":"success","response":responses}
+            response.set_data(json.dumps(responses_message))
+            return
+            
     #=====================================================================================
     # Trained Rasa_NLU[Spacy] Model to handle the FAQ questions similarity matching 
     #=====================================================================================
@@ -130,37 +136,97 @@ def process_input(input, response):
         faq_id = FAQ_ID[top_list[0][0]]
 
         store_data(input, faq_id)
-        # print("User input recorded!")
 
-        if result[1] =="buttons":
-            buttonList = result[0].split(",")
-            buttons = []
-            
-            for i in range( len(buttonList) ):
-                buttons.append({"payload": buttonList[i], "title": buttonList[i]})
-            responses = []  
-          
-            responses.append({'recipient_id': 'default', result[1] : buttons})
-            responses_message = {"status":"success","response":responses}
-            response.set_data(json.dumps(responses_message))
-            # print(responses_message)
-        else:
-            responses = [{'recipient_id': 'default', result[1] : result[0]}]
-            responses_message = {"status":"success","response":responses}
-            response.set_data(json.dumps(responses_message))
-            # print(responses_message)
-            
-    #=====================================================================================
-    # Trained Rasa_Core Model to handle general conversation
-    #=====================================================================================
-    else :
-        faq_id = -1
-        store_data(input, faq_id)
-        responses = agent.handle_message(input)
-        
-        if responses == []:
-            responses = [{'recipient_id': 'default', 'text' : 'Sorry, I cound not understand what you mean! Can you say again?'}]
-
+        responses = [{'recipient_id': 'default', result[1] : result[0]}]
         responses_message = {"status":"success","response":responses}
         response.set_data(json.dumps(responses_message))
     
+    else:   # All top 3 similar FAQs have low similarity rate
+        relevant_faq_ids = []
+        relevant_match_rates = []
+        prep_answers = []
+        counter = 1
+
+        for i in range(3):
+            relevant_faq_ids.append(FAQ_ID[top_list[i][0]])
+            relevant_match_rates.append(top_list[i][1])      
+            prep_answers.append([ FAQ_ANS[top_list[i][0]] , FAQ_TYPE[top_list[i][0]] ])
+            result[0] += str(i+1) + ". " + FAQ_QN[top_list[i][0]].text + "<br/>"
+            counter += 1
+        
+        result[0] += str(counter) + ". None of the above"
+
+        prep_answers.append([result,"text"])  
+        response.set_cookie("raw_qn", input)
+        response.set_cookie("relevant_faq_ids", json.dumps(relevant_faq_ids))
+        response.set_cookie("relevant_match_rates", json.dumps(relevant_match_rates))
+        response.set_cookie("prep_answers", json.dumps(prep_answers))
+        responses = [{'recipient_id': 'default', result[1]:result[0]}]
+        responses_message = {"status":"success","response":responses}
+        response.set_data(json.dumps(responses_message))
+     
+    # =====================================================================================
+    # Trained Rasa_Core Model to handle general conversation
+    # =====================================================================================
+    # else :
+    #     faq_id = -1
+    #     store_data(input, faq_id)
+    #     responses = agent.handle_message(input)
+        
+    #     if responses == []:
+    #         responses = [{'recipient_id': 'default', 'text' : 'Sorry, I cound not understand what you mean! Can you say again?'}]
+
+    #     responses_message = {"status":"success","response":responses}
+    #     response.set_data(json.dumps(responses_message))
+
+
+# 2-tier handling question    
+def second_confirm(input, prep_answers, response):
+    resolved = [None,["How can I help you?","Text"]]
+    raw_qn = request.cookies.get("raw_qn")
+    relevant_faq_ids = request.cookies.get("relevant_faq_ids")
+    relevant_faq_ids = json.loads(relevant_faq_ids, object_pairs_hook = OrderedDict)
+    relevant_match_rates = request.cookies.get("relevant_match_rates")
+    relevant_match_rates = json.loads(relevant_match_rates, object_pairs_hook = OrderedDict)
+    prep_answers = json.loads(prep_answers, object_pairs_hook = OrderedDict)
+
+    response.set_cookie("raw_qn", expires=0)
+    response.set_cookie("relevant_faq_ids", expires=0)
+    response.set_cookie("relevant_match_rates", expires=0)
+    response.set_cookie("prep_answers", expires=0)
+
+    right_match_faq = None
+    right_match_rate = None
+    input_lower = input.lower()
+
+    print("Check user 2nd input: ")
+    print(resolved)
+    # condition based on user input
+    if input_lower == "1" or input_lower == "one" or input_lower == "first":        
+        right_match_faq = relevant_faq_ids[0]
+        right_match_rate = relevant_match_rates[0]
+        resolved[0] = True
+        resolved[1][0] = prep_answers[0][0]
+        resolved[1][1] = prep_answers[0][1]
+
+    elif input_lower == "2" or input_lower == "two" or input_lower == "second":      
+        right_match_faq = relevant_faq_ids[1]
+        right_match_rate = relevant_match_rates[1]
+        resolved[0] = True
+        resolved[1][0] = prep_answers[1][0]
+        resolved[1][1] = prep_answers[1][1]
+
+    elif input_lower == "3" or input_lower == "three" or input_lower == "third": 
+        right_match_faq = relevant_faq_ids[2]
+        right_match_rate = relevant_match_rates[2]
+
+        resolved[0] = True
+        resolved[1][0] = prep_answers[2][0]
+        resolved[1][1] = prep_answers[2][1]
+
+    else:
+        resolved[0] = False
+        resolved[1][0] = "Sorry, I cound not understand what you mean! Can you say again?"
+        resolved[1][1] = "text"
+
+    return resolved

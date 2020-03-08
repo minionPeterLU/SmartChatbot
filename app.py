@@ -39,8 +39,8 @@ CORS(app, support_credentials=True)
 app.config.from_object(Config)
 app.config['TRAP_BAD_REQUEST_ERRORS'] = True
 
-# MySQL Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:ZYXzyx233@localhost/chatbot'
+# Configuration code for access to mysql using python query
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:ZYXzyx233@localhost/chatbot'
 
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
@@ -94,29 +94,18 @@ def index():
 def chatbotUI():
     return render_template('index.html')
 
+# HINT: username: yuxin2020 | password: yuxin9898
 # Login backend method
 @app.route('/login',methods=['GET','POST'])
 def login():
     form = LoginForm()
-    username = form.username.data
-    password = form.password.data
-    error= ""
-    conn = conn_manager.get_conn()    
-    df = pd.read_sql_query('select user_name as username, user_password as passord from user',con=conn)
- 
-    
-    if conn != None:
-        conn.close()
-
-    if df.empty:
-        error = 'Invalid username or password!' 
-        return render_template('admin_login.html', form = form, error = error)
-    
-    if  df['username'].str.contains(username, regex=False).any():  
-        index = df[df['username']==username].index.values[0]
-
-        if df['passord'][index] == password: 
-            return redirect(url_for('home'))
+    error = ""
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user:
+            if check_password_hash(user.password, form.password.data):
+                login_user(user, remember = form.remember.data)
+                return redirect(url_for('home'))
 
         error = 'Invalid username or password!' 
         
@@ -124,7 +113,7 @@ def login():
 
 # Change password backend method
 @app.route('/change_password',methods=['GET','POST'])
-# @login_required
+@login_required
 def change_password():
     
     form = ResetPasswordForm()
@@ -150,7 +139,7 @@ def change_password():
 
 # Signup backend method
 @app.route('/signup',methods=['GET','POST'])
-# @login_required
+@login_required
 def signup():
     form = RegisterForm()
     error = ""
@@ -167,15 +156,15 @@ def signup():
 
 # Process the logic to log out
 @app.route('/logout')
-# @login_required
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
 # The landing Dashboard page for home 
 @app.route('/admin')
-# @cross_origin(support_credentials=True)
-# @login_required
+@cross_origin(support_credentials=True)
+@login_required
 def home():
     
     conn = conn_manager.get_conn()    
@@ -203,7 +192,7 @@ def home():
 # upon landing to the dashboard page, this back end will auto-process different datasets required 
 # from the dashboard to psa-dashboard-chart.js for further loading process to Dashboard
 @app.route('/category_analysis', methods = ['POST'])
-# @login_required
+@login_required
 def category_anlaysis():
     
     conn = conn_manager.get_conn()
@@ -280,7 +269,7 @@ def category_anlaysis():
 # this back end will process different filtered datasets required from the dashboard to psa-dashboard-chart.js for further loading process to Dashboard
 @app.route("/breakdown_analysis", methods = ['POST'])
 @cross_origin(supports_credentials=True)
-# @login_required
+@login_required
 def breakdown_analysis():
 
     if request.method == 'POST':
@@ -332,23 +321,6 @@ def breakdown_analysis():
                 hit_analysis_df['timestamp'] = hit_analysis_df.timestamp.dt.strftime('%d')
             
                 
-            if choice =="day":
-                year = data['year']
-                month = data['month']
-                day = data['day']
-
-                df = df[df['timestamp'].dt.year == year]
-                df = df[df['timestamp'].dt.month == month]
-                df = df[df['timestamp'].dt.day == day]
-                df['timestamp']= df['timestamp'].dt.floor('h')
-
-                hit_analysis_df = df.groupby('timestamp') \
-            .agg({'analysis_user_input':'size', 'accuracy':'mean'}) \
-            .rename(columns={'analysis_user_input':'total_count','accuracy':'accuracy_mean'}) \
-            .reset_index()
-                hit_analysis_df = hit_analysis_df[np.isfinite(hit_analysis_df['accuracy_mean'])]
-                hit_analysis_df['timestamp'] = hit_analysis_df.timestamp.dt.strftime('%I %p')
-            
             hit_day_list = hit_analysis_df['timestamp'].tolist()
             hit_day_count = hit_analysis_df['total_count'].tolist()
             hit_day_accuracy = hit_analysis_df['accuracy_mean'].tolist()
@@ -404,7 +376,7 @@ def breakdown_analysis():
 
 # This is the landing page of FAQ Database
 @app.route('/faq_view', methods = ['GET','POST'])
-# @login_required
+@login_required
 def faq_view():
 
     conn = conn_manager.get_conn()
@@ -428,7 +400,7 @@ def faq_view():
 
 # This is the method to process filter function in FAQ Database page
 @app.route('/faqview_breakdown', methods = ['POST'])
-# @login_required
+@login_required
 def faqview_breakdown():
 
     if request.method == "POST":
@@ -463,7 +435,7 @@ def faqview_breakdown():
 
 # This is the method to process add new faq function in FAQ Database page
 @app.route('/faq_insert', methods = ['POST'])
-# @login_required
+@login_required
 def faq_insert():
 
     if request.method == "POST":
@@ -498,7 +470,7 @@ def faq_insert():
 
 # This is the method to process delete exist row of faq in FAQ Database page
 @app.route('/faq_delete', methods = ['POST'])
-# @login_required
+@login_required
 def faq_delete():
     if request.method == 'POST':
 
@@ -520,7 +492,7 @@ def faq_delete():
 
 # This is the method to process update exist row of faq in FAQ Database page
 @app.route('/faq_update',methods = ['POST'])
-# @login_required
+@login_required
 def faq_update():
 
     if request.method == 'POST':
@@ -577,5 +549,3 @@ def chat():
 app.config["DEBUG"] = True
 if __name__ == "__main__":
     app.run(port=8080)
-
-

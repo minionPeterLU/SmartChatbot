@@ -1,2 +1,0 @@
-user_id,user_name,user_password,user_first_name,user_last_name,user_email
-1,admin,sha256$rafDWogy$19fb384a7468b508b2d77ca62dceac65d3b726d234634c2a1ed1ff09d37dc992,Peter,LU,peterlu@pingan.com

@@ -17,7 +17,7 @@ actions:
 
 templates:
   utter_greet:
-  - text: "Nice to you meet you {name}. How can I help?"
+  - text: "Nice to you meet you. How can I help?"
     image: "http://m.plonga.com/uploads/thumbs/tropical-minion-delivery-html5-game.jpg"
     buttons:
     - title: "great"

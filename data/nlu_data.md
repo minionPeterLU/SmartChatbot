@@ -165,3 +165,8 @@
 - qualification
 - requirement
 - require need
+
+## synonym:undergraduate
+- degree
+- bachelor
+- bachelor degree

@@ -6,33 +6,26 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-sm-6">
-        <div class="row">
-            <div class="chat_window">
-                <ul class="messages"></ul>
-                <div class="bottom_wrapper clearfix">
-                    <div class="message_input_wrapper">
-                        <input id="msg_input" class="message_input" placeholder="Say Hi to begin chat..." />
-                    </div>
-                    <div class="send_message">
-                         <div class="text">send</div>
-                    </div>
-                </div>
+    <div class="chat_window">
+        <ul class="messages"></ul>
+        <div class="bottom_wrapper clearfix">
+            <div class="message_input_wrapper">
+                <input id="msg_input" class="message_input" placeholder="Say Hi to begin chat..." />
             </div>
-            <div class="message_template">
-                <li class="message">
-                    <div class="text_wrapper">
-                        <div class="text"></div>
-                        <div class="img"></div>
-                        <div class="button"></div>
-                    </div>
-                </li>
+            <div class="send_message">
+                    <div class="text">send</div>
             </div>
         </div>
     </div>
-</div>
-
+    <div class="message_template">
+        <li class="message">
+            <div class="text_wrapper">
+                <div class="text"></div>
+                <div class="img"></div>
+                <div class="button"></div>
+            </div>
+        </li>
+    </div>
 {% endblock %}
 
 {% block other_footers %}

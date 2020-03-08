@@ -50,7 +50,6 @@
                                     <b>Show by: &nbsp;</b> &nbsp;  
                                     <input type="radio" name="choice" value="year" onclick="show1();" checked> Month &nbsp;&nbsp;
                                     <input type="radio" name="choice" value="month" onclick="show2();" > Day &nbsp;&nbsp;
-                                    <input type="radio" name="choice" value="day"  onclick="show3();"> Hour   
                                 </tr>
                                
                                 <tr> 
@@ -81,21 +80,6 @@
                                     </div>
                                 </tr>
                                 <tr>
-                                    <div id="div3" class="hide">
-                                        <b> Choose Day:</b>&nbsp;                                       
-                                        
-                                        <input id="datepicker"/> 
-                                        <script>
-                                            Date.prototype.toDateInputValue = (function() {
-                                                var local = new Date(this);
-                                                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-                                                return local.toJSON().slice(0,10);
-                                            });
-                                            document.getElementById('datePicker').value = new Date().toDateInputValue();
-                                        </script>
-                                    </div>
-                                </tr>  
-                                <tr>
                                     <td>
                                         <div class="form-group">
                                             <input id="filter" type="button" class="filter-button" style="background-color:#00acd6"  value="Filter" onclick="filterChart()" />
@@ -110,7 +94,6 @@
                             
                             function selectDay(sorted_date){
                                 jQuery(function(){
-                                    // console.log(sorted_date)
                                     var enableDays = sorted_date;
                                     var today = new Date()
                                     function enableAllTheseDays(date) {

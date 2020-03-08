@@ -44,7 +44,7 @@ templates:
     - payload: super sad
       title: super sad
     image: http://m.plonga.com/uploads/thumbs/tropical-minion-delivery-html5-game.jpg
-    text: Nice to you meet you {name}. How can I help?
+    text: Nice to you meet you. How can I help?
   utter_happy:
   - text: Great carry on!
   utter_name:

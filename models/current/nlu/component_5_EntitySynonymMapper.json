@@ -4,5 +4,8 @@
   "degree cert": "certificate",
   "qualification": "qualified",
   "requirement": "qualified",
-  "require need": "qualified"
+  "require need": "qualified",
+  "degree": "undergraduate",
+  "bachelor": "undergraduate",
+  "bachelor degree": "undergraduate"
 }
