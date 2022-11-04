@@ -45,4 +45,4 @@ pandas
 wtforms
 uwsgi
 pymysql
-Twisted==18.9.0
+Twisted==22.10.0
